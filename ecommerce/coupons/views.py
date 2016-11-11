@@ -162,7 +162,7 @@ class CouponRedeemView(EdxOrderPlacementMixin, View):
 
         basket = prepare_basket(request, product, voucher)
         if request.site.siteconfiguration.enable_sdn_check and not sdn_check(request):
-            logger.info('Failed SDN check -- not allowing checkout')
+            logger.info('SDN check failed for user [%d]', request.user.id)
             return render(request, template_name, {'error': _('An error has occured and checkout can not continue.')})
 
         if basket.total_excl_tax == 0:

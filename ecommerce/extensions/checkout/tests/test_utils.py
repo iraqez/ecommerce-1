@@ -79,7 +79,6 @@ class UtilTests(TestCase):
 
 class SDNCheckTests(TestCase):
     """ Tests for the SDN check function. """
-
     def setUp(self):
         super(SDNCheckTests, self).setUp()
         self.request = RequestFactory()
@@ -96,17 +95,16 @@ class SDNCheckTests(TestCase):
 
     def mock_sdn_response(self, response, status_code=200):
         """ Mock the SDN check API endpoint response. """
-        config = self.request.site.siteconfiguration
         httpretty.register_uri(
             httpretty.GET,
-            config.sdn_check_url(self.request.user.full_name),
+            self.request.site.siteconfiguration.sdn_check_url(self.request.user.full_name),
             status=status_code,
             body=json.dumps(response),
             content_type='application/json'
         )
 
-    def assert_sdn_failure(self, basket, failure_type, response):
-        """ Assert an SDN failure is logged and has the correct values. """
+    def assert_sdn_check_failure(self, basket, failure_type, response):
+        """ Assert an SDN check failure is logged and has the correct values. """
         self.assertEqual(SDNCheckFailure.objects.count(), 1)
         sdn_object = SDNCheckFailure.objects.first()
         self.assertEqual(sdn_object.full_name, self.request.user.full_name)
@@ -123,7 +121,7 @@ class SDNCheckTests(TestCase):
         self.assertEqual(SDNCheckFailure.objects.count(), 0)
         self.assertTrue(sdn_check(self.request))
 
-        self.assert_sdn_failure(basket, SDNCheckFailure.CONN_ERR, '')
+        self.assert_sdn_check_failure(basket, SDNCheckFailure.CONN_ERR, '')
 
     @httpretty.activate
     def test_sdn_check_match(self):
@@ -134,7 +132,7 @@ class SDNCheckTests(TestCase):
         self.assertEqual(SDNCheckFailure.objects.count(), 0)
         self.assertFalse(sdn_check(self.request))
 
-        self.assert_sdn_failure(basket, SDNCheckFailure.MATCHED, json.dumps(sdn_response))
+        self.assert_sdn_check_failure(basket, SDNCheckFailure.MATCHED, json.dumps(sdn_response))
 
     @httpretty.activate
     def test_sdn_check_pass(self):

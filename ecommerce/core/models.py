@@ -123,7 +123,7 @@ class SiteConfiguration(models.Model):
     )
     enable_sdn_check = models.BooleanField(
         verbose_name=_('Enable SDN check'),
-        help_text=_('Enable SDN check at basket checkout.'),
+        help_text=_('Enable SDN check at checkout.'),
         blank=True,
         default=False
     )
@@ -150,12 +150,13 @@ class SiteConfiguration(models.Model):
         unique_together = ('site', 'partner')
 
     def sdn_check_url(self, full_name):
-        """ Construct the SDN check URL.
+        """Construct the SDN check URL.
+        The SDN check URL is specific for https://api.trade.gov SDN endpoint.
 
         Args:
             full_name(str): Full name of the user who is checked.
         Return
-            The constructed URL.
+            URL constructed from saved SDN values and the user's full name.
         """
         return '{sdn_api}/?sources={sdn_list}&api_key={sdn_key}&type=individual&name={full_name}'.format(
             sdn_api=self.sdn_api_url,

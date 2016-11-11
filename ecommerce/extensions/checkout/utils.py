@@ -78,10 +78,8 @@ def add_currency(amount):
 
 def sdn_check(request):
     """
-    Call to check if request user is on the US Treasuery Department OFAC list.
-    The SDN check URL is specific for https://api.trade.gov SDN endpoint.
-
-    SDN check matches and failures to connect are logged in SDNCheckFailure model.
+    Call SDN check API to check if the user is on the US Treasury Department OFAC list.
+    SDN check matches and connection failures are logged in SDNCheckFailure model.
 
     Arguments:
         request (Request): The request object made to the view.
@@ -101,7 +99,7 @@ def sdn_check(request):
         )
         logger.info('Unable to connect to US Treasury SDN API')
         return True
-    if json.loads(response.content)['total'] == 0:
+    elif json.loads(response.content)['total'] == 0:
         return True
     else:
         SDNCheckFailure.objects.create(
