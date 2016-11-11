@@ -14,7 +14,7 @@ class Migration(migrations.Migration):
         migrations.AddField(
             model_name='siteconfiguration',
             name='enable_sdn_check',
-            field=models.BooleanField(default=False, help_text='Enable SDN check at basket checkout.', verbose_name='Enable SDN check'),
+            field=models.BooleanField(default=False, help_text='Enable SDN check at checkout.', verbose_name='Enable SDN check'),
         ),
         migrations.AddField(
             model_name='siteconfiguration',
