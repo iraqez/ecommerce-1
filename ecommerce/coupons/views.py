@@ -161,7 +161,7 @@ class CouponRedeemView(EdxOrderPlacementMixin, View):
             return render(request, template_name, {'error': _('You are already enrolled in the course.')})
 
         basket = prepare_basket(request, product, voucher)
-        if not sdn_check(self.request):
+        if request.site.siteconfiguration.enable_sdn_check and not sdn_check(request):
             logger.info('Failed SDN check -- not allowing checkout')
             return render(request, template_name, {'error': _('An error has occured and checkout can not continue.')})
 

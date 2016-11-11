@@ -149,6 +149,21 @@ class SiteConfiguration(models.Model):
     class Meta(object):
         unique_together = ('site', 'partner')
 
+    def sdn_check_url(self, full_name):
+        """ Construct the SDN check URL.
+
+        Args:
+            full_name(str): Full name of the user who is checked.
+        Return
+            The constructed URL.
+        """
+        return '{sdn_api}/?sources={sdn_list}&api_key={sdn_key}&type=individual&name={full_name}'.format(
+            sdn_api=self.sdn_api_url,
+            sdn_list=self.sdn_api_list,
+            sdn_key=self.sdn_api_key,
+            full_name=full_name
+        )
+
     @property
     def payment_processors_set(self):
         """

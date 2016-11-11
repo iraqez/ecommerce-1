@@ -91,14 +91,7 @@ def sdn_check(request):
     site_config = request.site.siteconfiguration
     full_name = request.user.full_name
     basket = Basket.get_basket(request.user, request.site)
-
-    sdn_query_url = '{sdn_api}/?sources={sdn_list}&api_key={sdn_key}&type=individual&name={full_name}'.format(
-        sdn_api=site_config.sdn_api_url,
-        sdn_list=site_config.sdn_api_list,
-        sdn_key=site_config.sdn_api_key,
-        full_name=full_name
-    )
-    response = requests.get(sdn_query_url)
+    response = requests.get(site_config.sdn_check_url(full_name))
 
     if response.status_code != 200:
         SDNCheckFailure.objects.create(

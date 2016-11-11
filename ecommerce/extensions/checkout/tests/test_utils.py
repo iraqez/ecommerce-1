@@ -97,15 +97,9 @@ class SDNCheckTests(TestCase):
     def mock_sdn_response(self, response, status_code=200):
         """ Mock the SDN check API endpoint response. """
         config = self.request.site.siteconfiguration
-        sdn_query_url = '{sdn_api}/?sources={sdn_list}&api_key={sdn_key}&type=individual&name={full_name}'.format(
-            sdn_api=config.sdn_api_url,
-            sdn_list=config.sdn_api_list,
-            sdn_key=config.sdn_api_key,
-            full_name=self.request.user.full_name
-        )
         httpretty.register_uri(
             httpretty.GET,
-            sdn_query_url,
+            config.sdn_check_url(self.request.user.full_name),
             status=status_code,
             body=json.dumps(response),
             content_type='application/json'
