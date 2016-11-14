@@ -104,7 +104,10 @@ class BasketSummaryView(BasketView):
         """
         if self.request.site.siteconfiguration.enable_sdn_check and not sdn_check(self.request):
             logger.info('SDN check failed for user [%d]', self.request.user.id)
-            return render(self.request, 'basket/error.html')
+            return render(
+                self.request, 'basket/error.html',
+                {'error': _('An error has occurred and checkout can not continue.')}
+            )
         else:
             return super(BasketSummaryView, self).get(self.request, *args, **kwargs)
 

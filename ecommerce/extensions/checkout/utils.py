@@ -7,6 +7,7 @@ from django.conf import settings
 from django.utils.translation import get_language, to_locale
 from edx_rest_api_client.client import EdxRestApiClient
 from oscar.core.loading import get_model
+from rest_framework import status
 from slumber.exceptions import SlumberHttpBaseException
 
 from ecommerce.extensions.payment.models import SDNCheckFailure
@@ -79,7 +80,6 @@ def add_currency(amount):
 def sdn_check(request):
     """
     Call SDN check API to check if the user is on the US Treasury Department OFAC list.
-    SDN check matches and connection failures are logged in SDNCheckFailure model.
 
     Arguments:
         request (Request): The request object made to the view.
@@ -91,13 +91,11 @@ def sdn_check(request):
     basket = Basket.get_basket(request.user, request.site)
     response = requests.get(site_config.sdn_check_url(full_name))
 
-    if response.status_code != 200:
-        SDNCheckFailure.objects.create(
-            full_name=full_name,
-            failure_type=SDNCheckFailure.CONN_ERR,
-            basket=basket
+    if response.status_code != status.HTTP_200_OK:
+        logger.info(
+            'Unable to connect to US Treasury SDN API. Status code [%d] with message: %s',
+            response.status_code, response.content
         )
-        logger.info('Unable to connect to US Treasury SDN API')
         return True
     elif json.loads(response.content)['total'] == 0:
         return True

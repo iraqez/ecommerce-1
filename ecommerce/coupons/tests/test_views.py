@@ -430,7 +430,7 @@ class CouponRedeemViewTests(CouponMixin, CourseCatalogTestMixin, LmsApiMockMixin
         """ Verify user is redirected if SDN check passes. """
         self.prepare_sdn_check_values(0)
         self.create_and_test_coupon()
-        self.assert_redemption_page_redirects(self.student_dashboard_url, target=self.HTTP_MOVED)
+        self.assert_redemption_page_redirects(self.student_dashboard_url, target=status.HTTP_301_MOVED_PERMANENTLY)
 
 
 class EnrollmentCodeCsvViewTests(TestCase):
