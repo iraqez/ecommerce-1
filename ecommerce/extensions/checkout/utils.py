@@ -1,11 +1,12 @@
 import logging
 
-import requests
 from babel.numbers import format_currency
 from django.conf import settings
 from django.utils.translation import get_language, to_locale
 from edx_rest_api_client.client import EdxRestApiClient
+from requests.exceptions import ConnectionError, Timeout
 from slumber.exceptions import SlumberHttpBaseException
+
 
 logger = logging.getLogger(__name__)
 
@@ -25,7 +26,7 @@ def get_credit_provider_details(access_token, credit_provider_id, site_configura
             site_configuration.build_lms_url('api/credit/v1/'),
             oauth_access_token=access_token
         ).providers(credit_provider_id).get()
-    except (requests.exceptions.ConnectionError, SlumberHttpBaseException, requests.exceptions.Timeout):
+    except (ConnectionError, SlumberHttpBaseException, Timeout):
         logger.exception('Failed to retrieve credit provider details for provider [%s].', credit_provider_id)
         return None
 
