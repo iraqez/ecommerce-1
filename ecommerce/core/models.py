@@ -471,13 +471,14 @@ class User(AbstractUser):
             response = api.accounts(self.username).verification_status().get()
             return response.get('is_verified', False)
         except HttpNotFoundError:
+            log.info('No verification data found for [%s]', self.username)
             return False
         except (ConnectionError, SlumberBaseException, Timeout):  # pragma: no cover
             log.exception(
                 'Failed to retrieve verification status details for [%s]',
                 self.username
             )
-            raise
+            return False
 
 
 class Client(User):

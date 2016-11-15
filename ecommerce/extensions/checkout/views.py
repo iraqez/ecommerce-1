@@ -131,6 +131,16 @@ class ReceiptResponseView(ThankYouView):
         """
         return super(ReceiptResponseView, self).dispatch(*args, **kwargs)
 
+    # def get(self, request, *args, **kwargs):
+    #     try:
+    #         return super(ReceiptResponseView, self).get(request, *args, **kwargs)
+    #     except Http404:
+    #         self.template_name = 'checkout/receipt_not_found.html'
+    #         context = {
+    #             'order_history_url': request.site.siteconfiguration.build_lms_url('account/settings'),
+    #         }
+    #         return self.render_to_response(context=context, status=404)
+
     def get(self, request, *args, **kwargs):
         context = self.get_context_data(**kwargs)
         try:
