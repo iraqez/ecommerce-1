@@ -5,7 +5,6 @@ import logging
 import waffle
 from django.http import HttpResponseBadRequest, HttpResponseRedirect
 from django.utils.translation import ugettext_lazy as _
-from django.shortcuts import render
 from opaque_keys.edx.keys import CourseKey
 from oscar.apps.basket.views import *  # pylint: disable=wildcard-import, unused-wildcard-import
 from oscar.core.utils import redirect_to_referrer
@@ -18,7 +17,6 @@ from ecommerce.core.url_utils import get_lms_url
 from ecommerce.courses.utils import get_certificate_type_display_value, get_course_info_from_catalog, mode_for_seat
 from ecommerce.extensions.analytics.utils import prepare_analytics_data
 from ecommerce.extensions.basket.utils import prepare_basket, get_basket_switch_data
-from ecommerce.extensions.checkout.utils import sdn_check
 from ecommerce.extensions.offer.utils import format_benefit_value
 from ecommerce.extensions.partner.shortcuts import get_partner_for_site
 from ecommerce.extensions.payment.constants import CLIENT_SIDE_CHECKOUT_FLAG_NAME
@@ -97,19 +95,6 @@ class BasketSummaryView(BasketView):
         elif product.get_product_class().name == ENROLLMENT_CODE_PRODUCT_CLASS_NAME:
             seat_type = get_certificate_type_display_value(product.attr.seat_type)
         return seat_type
-
-    def get(self, *args, **kwargs):
-        """
-        Run an SDN check on getting the basket. If it fails redirect the user to an error page.
-        """
-        if self.request.site.siteconfiguration.enable_sdn_check and not sdn_check(self.request):
-            logger.info('SDN check failed for user [%d]', self.request.user.id)
-            return render(
-                self.request, 'basket/error.html',
-                {'error': _('An error has occurred and checkout can not continue.')}
-            )
-        else:
-            return super(BasketSummaryView, self).get(self.request, *args, **kwargs)
 
     def get_context_data(self, **kwargs):
         context = super(BasketSummaryView, self).get_context_data(**kwargs)

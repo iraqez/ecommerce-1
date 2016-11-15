@@ -21,7 +21,6 @@ from ecommerce.coupons.decorators import login_required_for_credit
 from ecommerce.extensions.api import exceptions
 from ecommerce.extensions.basket.utils import prepare_basket
 from ecommerce.extensions.checkout.mixins import EdxOrderPlacementMixin
-from ecommerce.extensions.checkout.utils import sdn_check
 from ecommerce.extensions.voucher.utils import get_voucher_and_products_from_code
 
 Applicator = get_class('offer.utils', 'Applicator')
@@ -161,10 +160,6 @@ class CouponRedeemView(EdxOrderPlacementMixin, View):
             return render(request, template_name, {'error': _('You are already enrolled in the course.')})
 
         basket = prepare_basket(request, product, voucher)
-        if request.site.siteconfiguration.enable_sdn_check and not sdn_check(request):
-            logger.info('SDN check failed for user [%d]', request.user.id)
-            return render(request, template_name, {'error': _('An error has occured and checkout can not continue.')})
-
         if basket.total_excl_tax == 0:
             self.place_free_order(basket)
         else:

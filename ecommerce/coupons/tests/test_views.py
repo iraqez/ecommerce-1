@@ -1,5 +1,4 @@
 import datetime
-import json
 import urllib
 
 import httpretty
@@ -397,40 +396,6 @@ class CouponRedeemViewTests(CouponMixin, CourseCatalogTestMixin, LmsApiMockMixin
         response = self.client.get(self.redeem_url_with_params)
         msg = 'You need to activate your account in order to redeem this coupon.'
         self.assertEqual(response.context['error'], _(msg))
-
-    def prepare_sdn_check_values(self, total_matches):
-        """ Prepare the SDN check site configuration values and register all needed URLS. """
-        config = self.request.site.siteconfiguration
-        config.enable_sdn_check = True
-        config.sdn_api_url = 'http://sdn-test.fake'
-        config.sdn_api_key = 'fake-key'
-        config.sdn_api_list = 'SDN,TEST'
-        config.save()
-
-        self.mock_enrollment_api(self.request, self.user, self.course.id, is_active=False, mode=self.course_mode)
-        self.mock_account_api(self.request, self.user.username, data={'is_active': True})
-        httpretty.register_uri(
-            httpretty.GET,
-            config.sdn_check_url(self.user.full_name),
-            body=json.dumps({'total': total_matches}),
-            content_type='application/json'
-        )
-
-    @httpretty.activate
-    def test_sdn_check_failure(self):
-        """ Verify an error message is displayed in case the SDN check fails. """
-        self.prepare_sdn_check_values(1)
-        self.create_and_test_coupon()
-        response = self.client.get(self.redeem_url_with_params)
-        msg = 'An error has occured and checkout can not continue.'
-        self.assertEqual(response.context['error'], _(msg))
-
-    @httpretty.activate
-    def test_sdn_check_pass(self):
-        """ Verify user is redirected if SDN check passes. """
-        self.prepare_sdn_check_values(0)
-        self.create_and_test_coupon()
-        self.assert_redemption_page_redirects(self.student_dashboard_url, target=status.HTTP_301_MOVED_PERMANENTLY)
 
 
 class EnrollmentCodeCsvViewTests(TestCase):

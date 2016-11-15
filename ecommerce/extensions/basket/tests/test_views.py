@@ -224,7 +224,7 @@ class BasketSummaryViewTests(CourseCatalogTestMixin, CourseCatalogMockMixin, Lms
 
     def setUp(self):
         super(BasketSummaryViewTests, self).setUp()
-        self.user = self.create_user(full_name='Full name')
+        self.user = self.create_user()
         self.client.login(username=self.user.username, password=self.password)
         self.course = CourseFactory(name='BasketSummaryTest')
         site_configuration = self.site.siteconfiguration
@@ -487,42 +487,6 @@ class BasketSummaryViewTests(CourseCatalogTestMixin, CourseCatalogMockMixin, Lms
 
         with self.assertRaises(SiteConfigurationError):
             self.client.get(self.get_full_url(self.path))
-
-    def prepare_sdn_check_values(self, total_matches):
-        """ Prepare the SDN check site configuration values and register all needed URLS. """
-        request = RequestFactory()
-        request.user = self.user
-        request.site = self.site
-        config = self.site.siteconfiguration
-        config.enable_sdn_check = True
-        config.sdn_api_url = 'http://sdn-test.fake'
-        config.sdn_api_key = 'fake-key'
-        config.sdn_api_list = 'SDN,TEST'
-        config.save()
-
-        httpretty.register_uri(
-            httpretty.GET,
-            config.sdn_check_url(self.user.full_name),
-            body=json.dumps({'total': total_matches}),
-            content_type='application/json'
-        )
-
-        return request
-
-    @httpretty.activate
-    @ddt.data(
-        ('Earn a valuable certificate to showcase the skills you learn', 0),
-        ('Checkout Error', 1),
-    )
-    @ddt.unpack
-    def test_sdn_check_pass(self, phrase, total_matches):
-        """ Verify an error page is rendered when the user fails the SDN check. """
-        self.prepare_sdn_check_values(total_matches)
-        seat = self.create_seat(self.course)
-        self.create_basket_and_add_product(seat)
-
-        response = self.client.get(self.get_full_url(self.path))
-        self.assertIn(phrase, response.content)
 
 
 class VoucherAddMessagesViewTests(TestCase):
