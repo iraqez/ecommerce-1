@@ -83,7 +83,9 @@ class SDNCheckTests(TestCase):
         super(SDNCheckTests, self).setUp()
         self.request = RequestFactory()
         self.request.COOKIES = {}
-        self.request.user = self.create_user(full_name='SDN tester')
+        self.username = 'Dr. Evil'
+        self.address = 'Top-secret lair'
+        self.request.user = self.create_user(full_name=self.username)
         site_configuration = SiteConfigurationFactory(
             partner__name='Tester',
             enable_sdn_check=True,
@@ -97,7 +99,7 @@ class SDNCheckTests(TestCase):
         """ Mock the SDN check API endpoint response. """
         httpretty.register_uri(
             httpretty.GET,
-            self.request.site.siteconfiguration.sdn_check_url(self.request.user.full_name),
+            self.request.site.siteconfiguration.sdn_check_url(self.username, self.address),
             status=status_code,
             body=json.dumps(response),
             content_type='application/json'
@@ -107,18 +109,17 @@ class SDNCheckTests(TestCase):
         """ Assert an SDN check failure is logged and has the correct values. """
         self.assertEqual(SDNCheckFailure.objects.count(), 1)
         sdn_object = SDNCheckFailure.objects.first()
-        self.assertEqual(sdn_object.full_name, self.request.user.full_name)
+        self.assertEqual(sdn_object.full_name, self.username)
         self.assertEqual(sdn_object.sdn_check_response, response)
         self.assertEqual(sdn_object.basket, basket)
 
     @httpretty.activate
     def test_sdn_check_connection_error(self):
         """ Verify an SDN failure is logged in case of a connection error. """
-        sdn_response = {}
-        self.mock_sdn_response(sdn_response, status_code=400)
+        self.mock_sdn_response({}, status_code=400)
         BasketFactory(owner=self.request.user, site=self.request.site)
         self.assertEqual(SDNCheckFailure.objects.count(), 0)
-        self.assertTrue(sdn_check(self.request))
+        self.assertTrue(sdn_check(self.request, self.username, self.address))
 
     @httpretty.activate
     def test_sdn_check_match(self):
@@ -127,7 +128,7 @@ class SDNCheckTests(TestCase):
         self.mock_sdn_response(sdn_response)
         basket = BasketFactory(owner=self.request.user, site=self.request.site)
         self.assertEqual(SDNCheckFailure.objects.count(), 0)
-        self.assertFalse(sdn_check(self.request))
+        self.assertFalse(sdn_check(self.request, self.username, self.address))
 
         self.assert_sdn_check_failure(basket, json.dumps(sdn_response))
 
@@ -137,5 +138,5 @@ class SDNCheckTests(TestCase):
         self.mock_sdn_response({'total': 0})
         BasketFactory(owner=self.request.user, site=self.request.site)
         self.assertEqual(SDNCheckFailure.objects.count(), 0)
-        self.assertTrue(sdn_check(self.request))
+        self.assertTrue(sdn_check(self.request, self.username, self.address))
         self.assertEqual(SDNCheckFailure.objects.count(), 0)

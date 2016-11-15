@@ -149,20 +149,24 @@ class SiteConfiguration(models.Model):
     class Meta(object):
         unique_together = ('site', 'partner')
 
-    def sdn_check_url(self, full_name):
+    def sdn_check_url(self, full_name, address):
         """Construct the SDN check URL.
         The SDN check URL is specific for https://api.trade.gov SDN endpoint.
 
         Args:
             full_name(str): Full name of the user who is checked.
-        Return
+            address(str): User's address.
+        Returns:
             URL constructed from saved SDN values and the user's full name.
         """
-        return '{sdn_api}/?sources={sdn_list}&api_key={sdn_key}&type=individual&name={full_name}'.format(
+        return (
+            '{sdn_api}/?sources={sdn_list}&api_key={sdn_key}&type=individual&name={full_name}&address={address}'
+        ).format(
             sdn_api=self.sdn_api_url,
             sdn_list=self.sdn_api_list,
             sdn_key=self.sdn_api_key,
-            full_name=full_name
+            full_name=full_name,
+            address=address
         )
 
     @property

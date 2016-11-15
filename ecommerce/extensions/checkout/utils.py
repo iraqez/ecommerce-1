@@ -77,19 +77,20 @@ def add_currency(amount):
     )
 
 
-def sdn_check(request):
+def sdn_check(request, full_name, address):
     """
     Call SDN check API to check if the user is on the US Treasury Department OFAC list.
 
     Arguments:
         request (Request): The request object made to the view.
+        full_name(str): Full name of the user who is checked.
+        address(str): User's address.
     Returns:
         result (Bool): Whether or not there is a match.
     """
     site_config = request.site.siteconfiguration
-    full_name = request.user.full_name
     basket = Basket.get_basket(request.user, request.site)
-    response = requests.get(site_config.sdn_check_url(full_name))
+    response = requests.get(site_config.sdn_check_url(full_name, address))
 
     if response.status_code != status.HTTP_200_OK:
         logger.info(
