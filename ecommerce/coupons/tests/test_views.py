@@ -267,7 +267,7 @@ class CouponRedeemViewTests(CouponMixin, CourseCatalogTestMixin, LmsApiMockMixin
 
     def setUp(self):
         super(CouponRedeemViewTests, self).setUp()
-        self.user = self.create_user(email='test@tester.fake', full_name='Full name')
+        self.user = self.create_user(email='test@tester.fake')
         self.client.login(username=self.user.username, password=self.password)
         self.course_mode = 'verified'
         self.course, self.seat = self.create_course_and_seat(

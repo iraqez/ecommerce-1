@@ -18,6 +18,7 @@ class Migration(migrations.Migration):
             fields=[
                 ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
                 ('full_name', models.CharField(max_length=255)),
+                ('address', models.CharField(max_length=255)),
                 ('sdn_check_response', jsonfield.fields.JSONField()),
                 ('created', models.DateTimeField(auto_now_add=True)),
                 ('basket', models.ForeignKey(to='basket.Basket')),

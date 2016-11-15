@@ -49,6 +49,7 @@ class PaypalProcessorConfiguration(SingletonModel):
 class SDNCheckFailure(models.Model):
     """ Record of SDN check failure. """
     full_name = models.CharField(max_length=255)
+    address = models.CharField(max_length=255)
     sdn_check_response = JSONField()
     basket = models.ForeignKey('basket.Basket')
     created = models.DateTimeField(auto_now_add=True)

@@ -1,4 +1,15 @@
+import json
+import logging
+
+import requests
 from django.utils.translation import ugettext_lazy as _
+from oscar.core.loading import get_model
+from rest_framework import status
+
+from ecommerce.extensions.payment.models import SDNCheckFailure
+
+logger = logging.getLogger(__name__)
+Basket = get_model('basket', 'Basket')
 
 
 def middle_truncate(string, chars):
@@ -37,3 +48,37 @@ def middle_truncate(string, chars):
     truncated = u'{start}{indicator}{end}'.format(start=start, indicator=indicator, end=end)
 
     return truncated
+
+
+def sdn_check(request, full_name, address):
+    """
+    Call SDN check API to check if the user is on the US Treasury Department OFAC list.
+
+    Arguments:
+        request (Request): The request object made to the view.
+        full_name(str): Full name of the user who is checked.
+        address(str): User's address.
+    Returns:
+        result (Bool): Whether or not there is a match.
+    """
+    site_config = request.site.siteconfiguration
+    basket = Basket.get_basket(request.user, request.site)
+    response = requests.get(site_config.sdn_check_url(full_name, address))
+
+    if response.status_code != status.HTTP_200_OK:
+        logger.info(
+            'Unable to connect to US Treasury SDN API. Status code [%d] with message: %s',
+            response.status_code, response.content
+        )
+        return True
+    elif json.loads(response.content)['total'] == 0:
+        return True
+    else:
+        SDNCheckFailure.objects.create(
+            full_name=full_name,
+            address=address,
+            sdn_check_response=response.content,
+            basket=basket
+        )
+        logger.info('SDN check failed for user [%s] on basket id [%d]', full_name, basket.id)
+        return False
