@@ -325,6 +325,17 @@ class SiteConfiguration(models.Model):
 
         return EdxRestApiClient(settings.COURSE_CATALOG_API_URL, jwt=self.access_token)
 
+    @cached_property
+    def credit_api_client(self):
+        """
+        Returns a Credit API client.
+
+        Returns:
+            EdxRestApiClient: Authenticated client with access to the Credit API.
+        """
+
+        return EdxRestApiClient(self.build_lms_url('api/credit/v1/'), jwt=self.access_token)
+
 
 class User(AbstractUser):
     """Custom user model for use with OIDC."""

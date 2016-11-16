@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-11-08 22:10-0500\n"
+"POT-Creation-Date: 2016-11-15 21:43-0500\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -137,50 +137,51 @@ msgstr ""
 msgid "Full Name"
 msgstr ""
 
-#: ecommerce/core/models.py:462 ecommerce/extensions/basket/models.py:65
+#: ecommerce/core/models.py:491 ecommerce/extensions/basket/models.py:65
 msgid "Name"
 msgstr ""
 
-#: ecommerce/coupons/tests/test_views.py:106
-#: ecommerce/coupons/tests/test_views.py:211 ecommerce/coupons/views.py:53
-#: ecommerce/coupons/views.py:101
+#: ecommerce/coupons/tests/test_views.py:107
+#: ecommerce/coupons/tests/test_views.py:212 ecommerce/coupons/views.py:53
+#: ecommerce/coupons/views.py:100
 msgid "Coupon does not exist"
 msgstr ""
 
-#: ecommerce/coupons/tests/test_views.py:115
-#: ecommerce/coupons/tests/test_views.py:221 ecommerce/coupons/views.py:60
+#: ecommerce/coupons/tests/test_views.py:116
+#: ecommerce/coupons/tests/test_views.py:222
+#: ecommerce/coupons/tests/test_views.py:343 ecommerce/coupons/views.py:60
 msgid "This coupon code has expired."
 msgstr ""
 
-#: ecommerce/coupons/tests/test_views.py:124 ecommerce/coupons/views.py:58
+#: ecommerce/coupons/tests/test_views.py:125 ecommerce/coupons/views.py:58
 msgid "This coupon code is not yet valid."
 msgstr ""
 
-#: ecommerce/coupons/tests/test_views.py:164 ecommerce/coupons/views.py:77
+#: ecommerce/coupons/tests/test_views.py:165 ecommerce/coupons/views.py:77
 msgid "This coupon code is no longer available."
 msgstr ""
 
-#: ecommerce/coupons/tests/test_views.py:173
+#: ecommerce/coupons/tests/test_views.py:174
 msgid "This coupon has already been used"
 msgstr ""
 
-#: ecommerce/coupons/tests/test_views.py:205 ecommerce/coupons/views.py:116
+#: ecommerce/coupons/tests/test_views.py:206 ecommerce/coupons/views.py:109
 msgid "This coupon code is invalid."
 msgstr ""
 
-#: ecommerce/coupons/tests/test_views.py:229 ecommerce/coupons/views.py:105
+#: ecommerce/coupons/tests/test_views.py:230 ecommerce/coupons/views.py:102
 msgid "The voucher is not applicable to your current basket."
 msgstr ""
 
-#: ecommerce/coupons/tests/test_views.py:312 ecommerce/coupons/views.py:138
+#: ecommerce/coupons/tests/test_views.py:312 ecommerce/coupons/views.py:130
 msgid "Code not provided."
 msgstr ""
 
-#: ecommerce/coupons/tests/test_views.py:318 ecommerce/coupons/views.py:140
+#: ecommerce/coupons/tests/test_views.py:318 ecommerce/coupons/views.py:132
 msgid "SKU not provided."
 msgstr ""
 
-#: ecommerce/coupons/tests/test_views.py:333 ecommerce/coupons/views.py:151
+#: ecommerce/coupons/tests/test_views.py:333 ecommerce/coupons/views.py:143
 msgid "The product does not exist."
 msgstr ""
 
@@ -189,15 +190,15 @@ msgstr ""
 msgid "Product [{product}] not available for purchase."
 msgstr ""
 
-#: ecommerce/coupons/views.py:158
+#: ecommerce/coupons/views.py:150
 msgid "You are not eligible to use this coupon."
 msgstr ""
 
-#: ecommerce/coupons/views.py:162
+#: ecommerce/coupons/views.py:156
 msgid "You need to activate your account in order to redeem this coupon."
 msgstr ""
 
-#: ecommerce/coupons/views.py:166
+#: ecommerce/coupons/views.py:160
 msgid "You are already enrolled in the course."
 msgstr ""
 
@@ -269,20 +270,20 @@ msgstr ""
 msgid "One of the products you're trying to order is unavailable."
 msgstr ""
 
-#: ecommerce/extensions/api/serializers.py:329
+#: ecommerce/extensions/api/serializers.py:371
 #, python-brace-format
 msgid "Invalid product class [{product_class}] requested."
 msgstr ""
 
-#: ecommerce/extensions/api/serializers.py:335
+#: ecommerce/extensions/api/serializers.py:377
 msgid "Products must indicate whether ID verification is required."
 msgstr ""
 
-#: ecommerce/extensions/api/serializers.py:339
+#: ecommerce/extensions/api/serializers.py:381
 msgid "Products must have a price."
 msgstr ""
 
-#: ecommerce/extensions/api/serializers.py:367
+#: ecommerce/extensions/api/serializers.py:409
 #, python-brace-format
 msgid ""
 "Course [{course_id}] was not published to LMS because the switch "
@@ -290,19 +291,19 @@ msgid ""
 "been saved."
 msgstr ""
 
-#: ecommerce/extensions/api/serializers.py:567
+#: ecommerce/extensions/api/serializers.py:609
 msgid "Enrollment code"
 msgstr ""
 
-#: ecommerce/extensions/api/serializers.py:568
+#: ecommerce/extensions/api/serializers.py:610
 msgid "Discount code"
 msgstr ""
 
-#: ecommerce/extensions/api/serializers.py:582
+#: ecommerce/extensions/api/serializers.py:624
 msgid "ACTIVE"
 msgstr ""
 
-#: ecommerce/extensions/api/serializers.py:582
+#: ecommerce/extensions/api/serializers.py:624
 msgid "INACTIVE"
 msgstr ""
 
@@ -318,7 +319,6 @@ msgstr ""
 #: ecommerce/extensions/basket/models.py:77
 #: ecommerce/extensions/payment/models.py:15
 #: ecommerce/templates/oscar/basket/basket.html:6
-#: ecommerce/templates/oscar/checkout/thank_you.html:170
 msgid "Basket"
 msgstr ""
 
@@ -435,6 +435,11 @@ msgstr ""
 msgid "Last date/time on which this product can be purchased."
 msgstr ""
 
+#: ecommerce/extensions/checkout/utils.py:69
+#, python-brace-format
+msgid "{currency}{price}"
+msgstr ""
+
 #: ecommerce/extensions/dashboard/forms.py:7
 #: ecommerce/templates/oscar/dashboard/orders/order_detail.html:42
 #: ecommerce/templates/oscar/dashboard/orders/order_list.html:73
@@ -445,7 +450,6 @@ msgid "Username"
 msgstr ""
 
 #: ecommerce/extensions/dashboard/forms.py:8
-#: ecommerce/templates/oscar/checkout/thank_you.html:57
 #: ecommerce/templates/oscar/dashboard/orders/order_list.html:74
 #: ecommerce/templates/oscar/dashboard/refunds/refund_list.html:61
 #: ecommerce/templates/oscar/dashboard/users/detail.html:50
@@ -501,11 +505,6 @@ msgstr ""
 msgid "{benefit_value}%"
 msgstr ""
 
-#: ecommerce/extensions/offer/utils.py:64
-#, python-brace-format
-msgid "${benefit_value}"
-msgstr ""
-
 #: ecommerce/extensions/order/models.py:26
 #: ecommerce/extensions/payment/models.py:13
 msgid "Payment Processor"
@@ -533,6 +532,26 @@ msgstr ""
 msgid "Partners"
 msgstr ""
 
+#: ecommerce/extensions/payment/constants.py:9
+#: ecommerce/templates/oscar/basket/partials/basket_content.html:179
+msgid "American Express"
+msgstr ""
+
+#: ecommerce/extensions/payment/constants.py:13
+#: ecommerce/templates/oscar/basket/partials/basket_content.html:180
+msgid "Discover"
+msgstr ""
+
+#: ecommerce/extensions/payment/constants.py:17
+#: ecommerce/templates/oscar/basket/partials/basket_content.html:178
+msgid "MasterCard"
+msgstr ""
+
+#: ecommerce/extensions/payment/constants.py:21
+#: ecommerce/templates/oscar/basket/partials/basket_content.html:177
+msgid "Visa"
+msgstr ""
+
 #: ecommerce/extensions/payment/exceptions.py:8
 msgid "We don't support the payment option you selected."
 msgstr ""
@@ -546,7 +565,6 @@ msgid "Last Name"
 msgstr ""
 
 #: ecommerce/extensions/payment/forms.py:35
-#: ecommerce/templates/oscar/checkout/thank_you.html:44
 #: ecommerce/templates/oscar/dashboard/orders/order_detail.html:495
 msgid "Address"
 msgstr ""
@@ -654,8 +672,8 @@ msgid "Line Credit (excl. tax)"
 msgstr ""
 
 #: ecommerce/extensions/refund/models.py:236
+#: ecommerce/templates/edx/checkout/receipt.html:73
 #: ecommerce/templates/oscar/basket/partials/basket_content.html:44
-#: ecommerce/templates/oscar/checkout/thank_you.html:124
 #: ecommerce/templates/oscar/dashboard/orders/line_detail.html:49
 #: ecommerce/templates/oscar/dashboard/orders/line_detail.html:107
 #: ecommerce/templates/oscar/dashboard/orders/line_detail.html:132
@@ -675,8 +693,6 @@ msgstr ""
 #: ecommerce/extensions/voucher/tests/test_utils.py:290
 #: ecommerce/extensions/voucher/utils.py:74
 #: ecommerce/extensions/voucher/utils.py:106
-#: ecommerce/templates/oscar/checkout/thank_you.html:182
-#: ecommerce/templates/oscar/checkout/thank_you.html:229
 #: ecommerce/templates/oscar/dashboard/orders/order_detail.html:180
 #: ecommerce/templates/oscar/dashboard/orders/order_detail.html:202
 #: ecommerce/templates/oscar/dashboard/orders/order_detail.html:246
@@ -780,6 +796,7 @@ msgid "Discount Amount"
 msgstr ""
 
 #: ecommerce/extensions/voucher/utils.py:206
+#: ecommerce/templates/edx/checkout/receipt.html:55
 #: ecommerce/templates/oscar/dashboard/users/detail.html:140
 msgid "Order Number"
 msgstr ""
@@ -977,10 +994,6 @@ msgstr ""
 #: ecommerce/templates/coupons/_offer_error.html:4
 #: ecommerce/templates/coupons/offer.html:5
 msgid "Redeem"
-msgstr ""
-
-#: ecommerce/templates/coupons/_offer_error.html:15
-msgid "If you need assistance, contact edX support."
 msgstr ""
 
 #: ecommerce/templates/coupons/coupon_app.html:5
@@ -1321,6 +1334,93 @@ msgstr ""
 msgid "Sign Out"
 msgstr ""
 
+#: ecommerce/templates/edx/checkout/receipt.html:7
+#, python-format
+msgid ""
+"\n"
+"        Receipt for %(order_number)s\n"
+"    "
+msgstr ""
+
+#: ecommerce/templates/edx/checkout/receipt.html:31
+msgid "Thank you!"
+msgstr ""
+
+#: ecommerce/templates/edx/checkout/receipt.html:38
+#, python-format
+msgid ""
+"\n"
+"                                            Your order was processed "
+"successfully. Print this page for your records. It\n"
+"                                            serves as your receipt. You will "
+"also receive a confirmation email with the\n"
+"                                            same information at %(email)s.\n"
+"                                        "
+msgstr ""
+
+#: ecommerce/templates/edx/checkout/receipt.html:58
+msgid "Payment Method"
+msgstr ""
+
+#: ecommerce/templates/edx/checkout/receipt.html:62
+msgid "Order Date"
+msgstr ""
+
+#: ecommerce/templates/edx/checkout/receipt.html:68
+#: ecommerce/templates/oscar/dashboard/orders/order_detail.html:81
+msgid "Order Details"
+msgstr ""
+
+#: ecommerce/templates/edx/checkout/receipt.html:74
+msgid "Description"
+msgstr ""
+
+#: ecommerce/templates/edx/checkout/receipt.html:75
+#: ecommerce/templates/oscar/dashboard/orders/order_detail.html:436
+#: ecommerce/templates/oscar/dashboard/orders/order_detail.html:577
+#: ecommerce/templates/oscar/dashboard/orders/order_detail.html:617
+#: ecommerce/templates/oscar/dashboard/refunds/refund_detail.html:167
+msgid "Amount"
+msgstr ""
+
+#: ecommerce/templates/edx/checkout/receipt.html:112
+#: ecommerce/templates/edx/credit/checkout.html:56
+#: ecommerce/templates/oscar/basket/partials/basket_totals.html:6
+msgid "Total:"
+msgstr ""
+
+#: ecommerce/templates/edx/checkout/receipt.html:136
+msgid "Go to Dashboard"
+msgstr ""
+
+#: ecommerce/templates/edx/checkout/receipt_not_found.html:6
+msgid "Order Not Found"
+msgstr ""
+
+#: ecommerce/templates/edx/checkout/receipt_not_found.html:18
+#, python-format
+msgid " %(error_summary)s "
+msgstr ""
+
+#: ecommerce/templates/edx/checkout/receipt_not_found.html:23
+msgid ""
+"\n"
+"                            The specified order could not be located.\n"
+"                            Please ensure that the URL is correct, and try "
+"again.\n"
+"                        "
+msgstr ""
+
+#: ecommerce/templates/edx/checkout/receipt_not_found.html:36
+#, python-format
+msgid ""
+"\n"
+"                            You may also view your previous orders on the "
+"%(link_start)sAccount Settings%(link_end)s\n"
+"                            page.\n"
+"                        "
+msgstr ""
+
 #: ecommerce/templates/edx/credit/_provider_detail.html:8
 msgid "Select"
 msgstr ""
@@ -1382,11 +1482,6 @@ msgstr ""
 msgid "Discount:"
 msgstr ""
 
-#: ecommerce/templates/edx/credit/checkout.html:56
-#: ecommerce/templates/oscar/basket/partials/basket_totals.html:6
-msgid "Total:"
-msgstr ""
-
 #: ecommerce/templates/edx/credit/checkout.html:85
 msgid "You deserve it."
 msgstr ""
@@ -1428,6 +1523,10 @@ msgid ""
 "                    Please read %(link_start)sour FAQs to view common "
 "questions about our certificates.%(link_end)s\n"
 "                "
+msgstr ""
+
+#: ecommerce/templates/edx/error.html:16
+msgid "If you need assistance, contact edX support."
 msgstr ""
 
 #: ecommerce/templates/edx/partials/_administration_menu.html:6
@@ -1500,22 +1599,6 @@ msgstr ""
 msgid "(Select a card type)"
 msgstr ""
 
-#: ecommerce/templates/oscar/basket/partials/basket_content.html:177
-msgid "Visa"
-msgstr ""
-
-#: ecommerce/templates/oscar/basket/partials/basket_content.html:178
-msgid "MasterCard"
-msgstr ""
-
-#: ecommerce/templates/oscar/basket/partials/basket_content.html:179
-msgid "American Express"
-msgstr ""
-
-#: ecommerce/templates/oscar/basket/partials/basket_content.html:180
-msgid "Discover"
-msgstr ""
-
 #: ecommerce/templates/oscar/basket/partials/basket_content.html:185
 msgid "Card Number"
 msgstr ""
@@ -1577,6 +1660,50 @@ msgid ""
 "            "
 msgstr ""
 
+#: ecommerce/templates/oscar/checkout/_credit_provider_data.html:6
+#, python-format
+msgid ""
+"\n"
+"        You still need to visit the %(provider_name)s website to complete "
+"the credit process.\n"
+"      "
+msgstr ""
+
+#: ecommerce/templates/oscar/checkout/_credit_provider_data.html:11
+#, python-format
+msgid ""
+"\n"
+"        To finalize course credit, %(provider_name)s requires "
+"%(platform_name)s learners to submit a credit request.\n"
+"      "
+msgstr ""
+
+#: ecommerce/templates/oscar/checkout/_credit_provider_data.html:35
+msgid "Get Credit"
+msgstr ""
+
+#: ecommerce/templates/oscar/checkout/_verification_data.html:4
+msgid "Don’t forget to verify your identity!"
+msgstr ""
+
+#: ecommerce/templates/oscar/checkout/_verification_data.html:6
+msgid ""
+"\n"
+"      To receive a verified certificate, you have to verify your identity "
+"using your <span class=\"bolded-text\">webcam</span> and an <span class="
+"\"bolded-text\">official government-issued photo identification</span> "
+"before the verification deadline for this course.\n"
+"    "
+msgstr ""
+
+#: ecommerce/templates/oscar/checkout/_verification_data.html:20
+msgid "Verify now"
+msgstr ""
+
+#: ecommerce/templates/oscar/checkout/_verification_data.html:29
+msgid "Go to my dashboard and verify later"
+msgstr ""
+
 #: ecommerce/templates/oscar/checkout/cancel_checkout.html:6
 #: ecommerce/templates/oscar/checkout/cancel_checkout.html:15
 msgid "Checkout Cancelled"
@@ -1590,6 +1717,36 @@ msgid ""
 "occurred, contact %(start_link)s\n"
 "            %(payment_support_email)s%(end_link)s.\n"
 "            "
+msgstr ""
+
+#: ecommerce/templates/oscar/checkout/cybersource_error.html:6
+#: ecommerce/templates/oscar/checkout/cybersource_error.html:15
+msgid "Payment Failed"
+msgstr ""
+
+#: ecommerce/templates/oscar/checkout/cybersource_error.html:17
+msgid ""
+"\n"
+"        A system error occurred while processing your payment. <b>You have "
+"not been charged.</b>\n"
+"      "
+msgstr ""
+
+#: ecommerce/templates/oscar/checkout/cybersource_error.html:23
+#, python-format
+msgid ""
+"\n"
+"          Please wait a few minutes and then try again. For help, contact "
+"%(start_link)s%(payment_support_email)s%(end_link)s.\n"
+"        "
+msgstr ""
+
+#: ecommerce/templates/oscar/checkout/cybersource_error.html:31
+#, python-format
+msgid ""
+"\n"
+"          To try again, visit the %(start_link)sbasket page%(end_link)s.\n"
+"        "
 msgstr ""
 
 #: ecommerce/templates/oscar/checkout/error.html:6
@@ -1611,176 +1768,6 @@ msgid ""
 "persists, contact %(start_link)s\n"
 "            %(payment_support_email)s%(end_link)s.\n"
 "            "
-msgstr ""
-
-#: ecommerce/templates/oscar/checkout/thank_you.html:12
-#: ecommerce/templates/oscar/checkout/thank_you.html:22
-#, python-format
-msgid ""
-"\n"
-"    Order %(number)s: confirmation\n"
-"  "
-msgstr ""
-
-#: ecommerce/templates/oscar/checkout/thank_you.html:29
-#, python-format
-msgid ""
-"\n"
-"      Your order has been placed and a confirmation email has been sent - "
-"your order number is\n"
-"      <strong>%(number)s</strong>.\n"
-"    "
-msgstr ""
-
-#: ecommerce/templates/oscar/checkout/thank_you.html:33
-msgid ""
-"Please make a note of this reference or print this page and quote it in any "
-"communication with us regarding your order."
-msgstr ""
-
-#: ecommerce/templates/oscar/checkout/thank_you.html:41
-#: ecommerce/templates/oscar/checkout/thank_you.html:216
-#: ecommerce/templates/oscar/dashboard/orders/order_detail.html:95
-#: ecommerce/templates/oscar/dashboard/orders/order_detail.html:474
-msgid "Shipping"
-msgstr ""
-
-#: ecommerce/templates/oscar/checkout/thank_you.html:53
-msgid "Contact"
-msgstr ""
-
-#: ecommerce/templates/oscar/checkout/thank_you.html:55
-#: ecommerce/templates/oscar/dashboard/orders/order_detail.html:506
-msgid "Phone"
-msgstr ""
-
-#: ecommerce/templates/oscar/checkout/thank_you.html:63
-#: ecommerce/templates/oscar/dashboard/orders/order_detail.html:510
-msgid "Instructions"
-msgstr ""
-
-#: ecommerce/templates/oscar/checkout/thank_you.html:67
-msgid "No shipping address required."
-msgstr ""
-
-#: ecommerce/templates/oscar/checkout/thank_you.html:72
-#: ecommerce/templates/oscar/checkout/thank_you.html:219
-msgid "Shipping method"
-msgstr ""
-
-#: ecommerce/templates/oscar/checkout/thank_you.html:81
-#: ecommerce/templates/oscar/checkout/thank_you.html:84
-#: ecommerce/templates/oscar/dashboard/orders/order_detail.html:98
-msgid "Payment"
-msgstr ""
-
-#: ecommerce/templates/oscar/checkout/thank_you.html:88
-#, python-format
-msgid ""
-"\n"
-"                  Allocation of %(amount)s from type %(type)s (reference: "
-"%(reference)s)\n"
-"                "
-msgstr ""
-
-#: ecommerce/templates/oscar/checkout/thank_you.html:92
-#, python-format
-msgid ""
-"\n"
-"                  Allocation of %(amount)s from type %(type)s\n"
-"                "
-msgstr ""
-
-#: ecommerce/templates/oscar/checkout/thank_you.html:99
-msgid "No payment was required for this order."
-msgstr ""
-
-#: ecommerce/templates/oscar/checkout/thank_you.html:104
-#: ecommerce/templates/oscar/dashboard/orders/order_detail.html:523
-msgid "Billing address"
-msgstr ""
-
-#: ecommerce/templates/oscar/checkout/thank_you.html:118
-#: ecommerce/templates/oscar/dashboard/orders/order_detail.html:89
-msgid "Order contents"
-msgstr ""
-
-#: ecommerce/templates/oscar/checkout/thank_you.html:123
-msgid "Items purchased"
-msgstr ""
-
-#: ecommerce/templates/oscar/checkout/thank_you.html:125
-msgid "Total"
-msgstr ""
-
-#: ecommerce/templates/oscar/checkout/thank_you.html:137
-#, python-format
-msgid ""
-"\n"
-"                Estimated dispatch: <strong>%(date)s</strong>\n"
-"              "
-msgstr ""
-
-#: ecommerce/templates/oscar/checkout/thank_you.html:164
-msgid "Totals"
-msgstr ""
-
-#: ecommerce/templates/oscar/checkout/thank_you.html:176
-msgid "Basket total (before discounts)"
-msgstr ""
-
-#: ecommerce/templates/oscar/checkout/thank_you.html:192
-msgid "Basket total (after discounts)"
-msgstr ""
-
-#: ecommerce/templates/oscar/checkout/thank_you.html:197
-#: ecommerce/templates/oscar/dashboard/orders/order_detail.html:222
-msgid "Basket total"
-msgstr ""
-
-#: ecommerce/templates/oscar/checkout/thank_you.html:224
-msgid "Shipping charge (before discounts)"
-msgstr ""
-
-#: ecommerce/templates/oscar/checkout/thank_you.html:234
-msgid "Shipping charge (after discounts)"
-msgstr ""
-
-#: ecommerce/templates/oscar/checkout/thank_you.html:239
-msgid "Shipping charge"
-msgstr ""
-
-#: ecommerce/templates/oscar/checkout/thank_you.html:256
-msgid "Order tax"
-msgstr ""
-
-#: ecommerce/templates/oscar/checkout/thank_you.html:270
-msgid "Post order actions"
-msgstr ""
-
-#: ecommerce/templates/oscar/checkout/thank_you.html:286
-#: ecommerce/templates/oscar/dashboard/orders/order_detail.html:277
-msgid "Order total"
-msgstr ""
-
-#: ecommerce/templates/oscar/checkout/thank_you.html:300
-msgid "Tracking your order"
-msgstr ""
-
-#: ecommerce/templates/oscar/checkout/thank_you.html:302
-msgid "You can track the status of your order"
-msgstr ""
-
-#: ecommerce/templates/oscar/checkout/thank_you.html:304
-msgid "View order status"
-msgstr ""
-
-#: ecommerce/templates/oscar/checkout/thank_you.html:315
-msgid "Print this page"
-msgstr ""
-
-#: ecommerce/templates/oscar/checkout/thank_you.html:318
-msgid "Continue shopping"
 msgstr ""
 
 #: ecommerce/templates/oscar/dashboard/catalogue/category_row_actions.html:6
@@ -2281,8 +2268,17 @@ msgstr ""
 msgid "Time of purchase"
 msgstr ""
 
-#: ecommerce/templates/oscar/dashboard/orders/order_detail.html:81
-msgid "Order Details"
+#: ecommerce/templates/oscar/dashboard/orders/order_detail.html:89
+msgid "Order contents"
+msgstr ""
+
+#: ecommerce/templates/oscar/dashboard/orders/order_detail.html:95
+#: ecommerce/templates/oscar/dashboard/orders/order_detail.html:474
+msgid "Shipping"
+msgstr ""
+
+#: ecommerce/templates/oscar/dashboard/orders/order_detail.html:98
+msgid "Payment"
 msgstr ""
 
 #: ecommerce/templates/oscar/dashboard/orders/order_detail.html:101
@@ -2346,6 +2342,10 @@ msgstr ""
 msgid "Basket total (inc. discounts)"
 msgstr ""
 
+#: ecommerce/templates/oscar/dashboard/orders/order_detail.html:222
+msgid "Basket total"
+msgstr ""
+
 #: ecommerce/templates/oscar/dashboard/orders/order_detail.html:235
 msgid "Shipping total (excl. discounts)"
 msgstr ""
@@ -2356,6 +2356,10 @@ msgstr ""
 
 #: ecommerce/templates/oscar/dashboard/orders/order_detail.html:266
 msgid "Shipping total"
+msgstr ""
+
+#: ecommerce/templates/oscar/dashboard/orders/order_detail.html:277
+msgid "Order total"
 msgstr ""
 
 #: ecommerce/templates/oscar/dashboard/orders/order_detail.html:294
@@ -2443,13 +2447,6 @@ msgstr ""
 msgid "Payment Events"
 msgstr ""
 
-#: ecommerce/templates/oscar/dashboard/orders/order_detail.html:436
-#: ecommerce/templates/oscar/dashboard/orders/order_detail.html:577
-#: ecommerce/templates/oscar/dashboard/orders/order_detail.html:617
-#: ecommerce/templates/oscar/dashboard/refunds/refund_detail.html:167
-msgid "Amount"
-msgstr ""
-
 #: ecommerce/templates/oscar/dashboard/orders/order_detail.html:450
 #: ecommerce/templates/oscar/dashboard/refunds/refund_detail.html:182
 msgid "Product:"
@@ -2478,6 +2475,18 @@ msgstr ""
 
 #: ecommerce/templates/oscar/dashboard/orders/order_detail.html:491
 msgid "Charge (excl tax)"
+msgstr ""
+
+#: ecommerce/templates/oscar/dashboard/orders/order_detail.html:506
+msgid "Phone"
+msgstr ""
+
+#: ecommerce/templates/oscar/dashboard/orders/order_detail.html:510
+msgid "Instructions"
+msgstr ""
+
+#: ecommerce/templates/oscar/dashboard/orders/order_detail.html:523
+msgid "Billing address"
 msgstr ""
 
 #: ecommerce/templates/oscar/dashboard/orders/order_detail.html:534

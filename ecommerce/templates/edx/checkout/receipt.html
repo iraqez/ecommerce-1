@@ -1,0 +1,146 @@
+{% extends 'edx/base.html' %}
+{% load currency_filters %}
+{% load i18n %}
+{% load staticfiles %}
+
+{% block title %}
+  {% blocktrans with order_number=order.number %}
+    Receipt for {{ order_number }}
+  {% endblocktrans %}
+{% endblock title %}
+
+{% block javascript %}
+  <script src="{% static 'js/apps/receipt_app.js' %}"></script>
+{% endblock javascript %}
+
+{% block navbar %}
+  {% include 'edx/partials/_student_navbar.html' %}
+{% endblock navbar %}
+
+{% block content %}
+  <div class="receipt">
+  <div class="container content-container">
+    <div id="receipt-container"
+         class="pay-and-verify"
+         data-total-amount="{{ order_data.total_excl_tax }}"
+         data-currency="{{ order_data.currency }}"
+         data-payment-successful="{{ payment_successful }}">
+      <div class="wrapper-content-main">
+        <div class="content-main">
+          <h3 class="thank-you">
+            {% trans "Thank you!" %}
+          </h3>
+
+          <div class="list-info">
+            <div class="info-item payment-info row">
+              <div class="copy col-md-8">
+                <div class="confirm-message">
+                  {% blocktrans with email=order.user.email %}
+                    Your order was processed successfully. Print this page for your records. It
+                    serves as your receipt. You will also receive a confirmation email with the
+                    same information at {{ email }}.
+                  {% endblocktrans %}
+                </div>
+
+                {% if order.billing_address %}
+                  <address class="billing-address">
+                    {% for field in order.billing_address.active_address_fields %}
+                      {{ field }}<br/>
+                    {% endfor %}
+                  </address>
+                {% endif %}
+              </div>
+
+              <div class="order-headers order-summary col-md-4">
+                <span class="order-number-heading">{% trans "Order Number" %}</span>
+                <div class="order-info">{{ order_data.number }}</div>
+                {% if order_data.payment_processor %}
+                  <span class="order-payment-heading">{% trans "Payment Method" %}</span>
+                  <div class="order-info">{{ payment_method }}</div>
+                {% endif %}
+
+                <span class="order-date-heading">{% trans "Order Date" %}</span>
+                <div class="order-info">{{ order.date_placed|date:"DATE_FORMAT" }}</div>
+              </div>
+            </div>
+
+{#            TODO: Make this table responsive.#}
+            <div class="wrapper-report">
+              <div class="order-headers order-details">{% trans "Order Details" %}</div>
+              <div class="table-responsive">
+                <table class="table">
+                  <thead class="order-columns">
+                  <tr>
+                    <th scope="col">{% trans "Quantity" %}</th>
+                    <th scope="col">{% trans "Description" %}</th>
+                    <th class="order-amount" scope="col">{% trans "Amount" %}</th>
+                  </tr>
+                  </thead>
+
+                  <tbody>
+                  {% for line in order.lines.all %}
+                    <tr class="order-line-data">
+                      <td>{{ line.quantity }}</td>
+                      <td>
+                        {{ line.description }}
+                        {#                                                TODO: Pull vouchers from order#}
+                        {#                                                    TODO: Treat coupons as a separate line, not nested.#}
+                        {#                                                    {% for voucher in order_data.vouchers %}#}
+                        {#                                                        <div class="voucher-info">{% trans "Coupon applied" %}:#}
+                        {#                                                            <span class="voucher-code">#}
+                        {#                                                              {{ voucher.code }}#}
+                        {#                                                              {{ order_data.discount_percentage }}% off#}
+                        {#                                                            </span>#}
+                        {#                                                            <span class="discount">-{{ order_data.formatted_discount }}</span>#}
+                        {#                                                        </div>#}
+                        {#                                                    {% endfor %}#}
+                      </td>
+
+                      <td>
+                        {#                                                    TODO: Display discounts *per-line* not on the whole order. #}
+                        {#                                                    {% if order_data.discount %}#}
+                        {#                                                        <div class="old-price">{{ line.line_price_before_discounts_incl_tax|currency:order.currency }}</div>#}
+                        {#                                                    {% endif %}#}
+                        <div class="final-price">{{ line.line_price_incl_tax|currency:order.currency }}</div>
+                      </td>
+                    </tr>
+                  {% endfor %}
+                  </tbody>
+
+                  <tfoot>
+                  <tr class="order-total">
+                    <td colspan="3">
+                      <div class="total-value">
+                        {% trans "Total:" %}&nbsp;
+                        <span class="value-amount">{{ order.total_incl_tax|currency:order.currency }}</span>
+                      </div>
+                    </td>
+                  </tr>
+                  </tfoot>
+                </table>
+              </div>
+            </div>
+
+            {% for provider in providers %}
+              {% include 'oscar/checkout/_credit_provider_data.html' %}
+            {% endfor %}
+          </div>
+        </div>
+
+        <div class="nav-wizard row">
+          {% if verified_course_id and not user_verified %}
+            {% include 'oscar/checkout/_verification_data.html' with course_id=verified_course_id %}
+          {% else %}
+            {#                        TODO: Display this as a button outside of the warning block (yellow top border.#}
+            <div id="verify_choices">
+              <a class="verify-later nav-link" href="{{ lms_dashboard_url }}">
+                {% trans "Go to Dashboard" %}
+              </a>
+            </div>
+          {% endif %}
+        </div>
+        </article>
+      </div>
+    </div>
+  </div>
+{% endblock content %}

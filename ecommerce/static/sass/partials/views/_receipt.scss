@@ -26,10 +26,11 @@
             margin-bottom: 15px;
             line-height: 22px;
         }
+    }
 
-        .addressed-to {
-            margin-bottom: 35px;
-        }
+    .billing-address {
+        margin-top: 35px;
+        margin-bottom: 35px;
     }
 
     .discount, .final-price {
@@ -59,6 +60,10 @@
 
     .info-item {
         overflow: hidden;
+    }
+
+    .payment-info {
+        margin-bottom: spacing-vertical(small);
     }
 
     .is-ready {
@@ -179,11 +184,6 @@
         color: #6f7074;
     }
 
-    .partner {
-        color: #7c7c7c;
-        font-size: 16px;
-    }
-
     /* Styling for the provider area; uses edX Pattern Library utils */
     .report-receipt-provider {
         @include clearfix;
@@ -233,8 +233,6 @@
         }
 
         .total-value {
-            float: right;
-            width: 14%;
             color: rgb(51, 122, 183);
             font-size: 22px;
             font-weight: 700;
