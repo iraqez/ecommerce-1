@@ -1,4 +1,5 @@
 {% extends 'edx/base.html' %}
+{% load core_extras %}
 {% load currency_filters %}
 {% load i18n %}
 {% load staticfiles %}
@@ -64,7 +65,7 @@
               </div>
             </div>
 
-{#            TODO: Make this table responsive.#}
+            {#            TODO: Make this table responsive.#}
             <div class="wrapper-report">
               <div class="order-headers order-details">{% trans "Order Details" %}</div>
               <div class="table-responsive">
@@ -121,9 +122,23 @@
               </div>
             </div>
 
-            {% for provider in providers %}
-              {% include 'oscar/checkout/_credit_provider_data.html' %}
-            {% endfor %}
+            {% if display_credit_messaging %}
+              {% captureas link_start %}
+                <a href="{{ lms_dashboard_url }}">
+              {% endcaptureas %}
+
+              <div class="nav-wizard row">
+                {#              TODO: Generalize these class names. #}
+                <p class="verify-message-header">{% trans "Finish your credit application!" %}</p>
+                <p class="verify-message">
+                  {% blocktrans with link_end="</a>" %}
+                    This order includes a credit course. In order to finalize your application for credit, please visit
+                    your {{ link_start }}Student Dashboard{{ link_end }} and follow the instructions for each
+                    credit-eligible course.
+                  {% endblocktrans %}
+                </p>
+              </div>
+            {% endif %}
           </div>
         </div>
 

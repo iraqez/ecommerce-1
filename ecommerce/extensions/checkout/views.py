@@ -3,7 +3,6 @@ from __future__ import unicode_literals
 
 from decimal import Decimal
 
-import dateutil.parser
 from django.contrib.auth.decorators import login_required
 from django.http import Http404
 from django.shortcuts import get_object_or_404
@@ -14,7 +13,6 @@ from oscar.apps.checkout.views import *  # pylint: disable=wildcard-import, unus
 from oscar.core.loading import get_class, get_model
 
 from ecommerce.core.url_utils import get_lms_url
-from ecommerce.extensions.api.serializers import OrderSerializer
 from ecommerce.extensions.checkout.exceptions import BasketNotFreeError
 from ecommerce.extensions.checkout.mixins import EdxOrderPlacementMixin
 from ecommerce.extensions.checkout.utils import get_receipt_page_url
@@ -146,8 +144,9 @@ class ReceiptResponseView(ThankYouView):
             'name': '{} {}'.format(self.request.user.first_name, self.request.user.last_name),
             'payment_method': self.get_payment_method(order),
             'payment_successful': self.request.session.pop('payment_successful', None),
+            'display_credit_messaging': self.order_contains_credit_seat(order)
         })
-        self.update_context_with_order_data(context)
+        context.update(self.get_order_verification_context(order))
         return context
 
     def get_object(self):
@@ -167,18 +166,14 @@ class ReceiptResponseView(ThankYouView):
         source = order.sources.first()
         return '{type} {number}'.format(type=source.get_card_type_display(), number=source.label)
 
-    def update_context_with_order_data(self, context):
-        """
-        Updates the context dictionary with Order data.
+    def order_contains_credit_seat(self, order):
+        for line in order.lines.all():
+            if getattr(line.product.attr, 'credit_provider', None):
+                return True
+        return False
 
-        Args:
-            context (dict): Context dictionary returned with the Response.
-        """
-        order = context[self.context_object_name]
-        site_configuration = self.request.site.siteconfiguration
-
-        verification_data = {}
-        credit_providers = set()
+    def get_order_verification_context(self, order):
+        context = {}
         verified_course_id = None
 
         # NOTE: Only display verification and credit completion details to the user who actually placed the order.
@@ -186,24 +181,8 @@ class ReceiptResponseView(ThankYouView):
             for line in order.lines.all():
                 product = line.product
 
-                credit_provider = getattr(product.attr, 'credit_provider', None)
-                if credit_provider:
-                    credit_providers.add(credit_provider)
-
                 if not verified_course_id and getattr(product.attr, 'id_verification_required', False):
                     verified_course_id = product.attr.course_key
-
-            if credit_providers:
-                try:
-                    # TODO Figure out a way to cache credit provider data for...24 hours.
-                    credit_providers = site_configuration.credit_api_client.providers().get(
-                        provider_ids=','.join(credit_providers)
-                    )
-                    credit_providers = {provider['id']: provider for provider in credit_providers}
-                    # TODO Attach credit provider info to the relevant order lines. The "beauty" of Python!
-                except:
-                    # TODO Set a flag to trigger an error display to the user.
-                    logger.exception('Failed to retrieve credit provider details.')
 
             if verified_course_id:
                 context.update({
@@ -211,9 +190,4 @@ class ReceiptResponseView(ThankYouView):
                     'user_verified': self.request.user.is_verified(self.request),
                 })
 
-        order_data = OrderSerializer(order, context={'request': self.request}).data
-
-        context.update({
-            'order_data': order_data,
-            'providers': credit_providers,
-        })
+        return context
