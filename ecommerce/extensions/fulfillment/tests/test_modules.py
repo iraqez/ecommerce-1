@@ -445,7 +445,7 @@ class EnrollmentCodeFulfillmentModuleTests(CourseCatalogTestMixin, TestCase):
         toggle_switch(ENROLLMENT_CODE_SWITCH, True)
         self.site.siteconfiguration.enable_otto_receipt_page = True
         course = CourseFactory()
-        course.create_or_update_seat('verified', True, 50, self.partner, create_enrollment_code=True)
+        enrollment_code = course.create_or_update_enrollment_code('verified', True, 50, self.partner)
         enrollment_code = Product.objects.get(product_class__name=ENROLLMENT_CODE_PRODUCT_CLASS_NAME)
         user = UserFactory()
         basket = BasketFactory()
