@@ -7,11 +7,11 @@ from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.support.ui import WebDriverWait
 
 from e2e.config import (VERIFIED_COURSE_ID, MARKETING_URL_ROOT,
-                                     PAYPAL_PASSWORD, PAYPAL_EMAIL, ENABLE_CYBERSOURCE_TESTS,
-                                     BULK_PURCHASE_SKU)
+                        PAYPAL_PASSWORD, PAYPAL_EMAIL, ENABLE_CYBERSOURCE_TESTS,
+                        BULK_PURCHASE_SKU)
 from e2e.constants import CYBERSOURCE_DATA1, CYBERSOURCE_DATA2
 from e2e.mixins import (LogistrationMixin, EnrollmentApiMixin, EcommerceApiMixin,
-                                     PaymentMixin, UnenrollmentMixin)
+                        PaymentMixin, UnenrollmentMixin)
 from e2e.pages.lms import LMSCourseModePage
 from e2e.pages.marketing import MarketingCourseAboutPage
 from e2e.pages.basket import BasketAddProductPage
