@@ -12,6 +12,7 @@
         }
 
         .basket-items {
+            margin-top: 20px;
             border-bottom: 1px solid #ddd;
 
             .certificate_type {
@@ -21,7 +22,7 @@
             .row {
                 padding-bottom: 30px;
 
-                .course_name,
+                .product-title,
                 .old-price,
                 .price {
                     margin: 0;
@@ -30,11 +31,11 @@
                     font-weight: bold;
                 }
 
-                .course_description {
+                .product-description {
                     font-size: 14px;
                 }
 
-                .course_prices {
+                .product-prices {
                     @include text-align(right);
                 }
 
@@ -57,7 +58,7 @@
                    }
                }
 
-                .course_image img {
+                .product-image img {
                     margin: 0 auto;
                     width: 100%;
                 }
@@ -133,7 +134,7 @@
                 }
             }
 
-            .course-price-label {
+            .product-price-label {
                 font-weight: normal;
                 font-size: 0.84rem;
                 + span {
@@ -233,7 +234,7 @@
     .basket {
         .container {
             .basket-items {
-                .course-price-label {
+                .product-price-label {
                     font-size: 20px;
                     font-weight: bold;
                     margin: 0px 20px 20px 0px;
@@ -259,8 +260,12 @@
             display: inline-block;
         }
 
-        .course_prices {
+        .product-prices {
             margin-top: 30px;
+        }
+
+        .total p.voucher {
+            margin: 0;
         }
     }
 }
