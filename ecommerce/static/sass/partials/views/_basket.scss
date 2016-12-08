@@ -144,7 +144,7 @@
             }
         }
 
-        .total {
+        .total, #summary {
             padding-top: 20px;
             margin-bottom: 1.25rem;
 
@@ -229,6 +229,221 @@
     }
 }
 
+
+.basket-new {
+    .close {
+        margin-top: -20px;
+    }
+    legend, p.title {
+        color: #337ab7;
+        font-size: 16px;
+        font-weight: bold;
+    }
+    #payment-method-information {
+        padding-left: 30px;
+        padding-top: 0;
+    }
+
+    .placeholder {
+        padding: 20px 0;
+    }
+
+    #payment-method {
+        #payment-method-image, button {
+            float: left;
+            border: 1px solid palette(grayscale, base);
+            height: 50px;
+        }
+
+        #payment-method-image {
+            border-bottom: 4px solid #337ab7;
+            background-image: url('/static/images/credit_card_options.png');
+            background-position: center center;
+            background-repeat: no-repeat;
+            width: 150px;
+        }
+
+        button {
+            position: relative;
+            left: -1px;
+            background-color: white;
+            width: 100px;
+            color: gray;
+        }
+    }
+
+    #payment-processor {
+        .payment-button {
+            border: 1px solid palette(grayscale, base);
+            border-radius: 5px;
+            background-position: center center;
+            background-repeat: no-repeat;
+            background-color: #fff;
+            width: 120px;
+            height: 50px;
+            &.payment-processor-paypal {
+                background-image: url('/static/images/paypal_logo.png');
+            }
+        }
+    }
+    .container {
+        #messages {
+            .alert-error {
+                color: #d2322d;
+            }
+
+            .alert-error {
+                background-color: #f2dede;
+                border-color: #ebccd1;
+                color: #a94442;
+            }
+        }
+
+        .payment-form {
+            .row {
+                margin: 0;
+            }
+
+            #payment-information {
+                border-right: 1px solid palette(grayscale, base);
+
+                .form-input-elements
+                 {
+                    div {
+                        margin: 0;
+
+                        label {
+                            color: gray;
+                            font-weight: normal;
+                        }
+
+                        input, select {
+                            border: 1px solid palette(grayscale, base);
+                            border-radius: 0;
+                        }
+                    }
+
+                    .asteriskField {
+                        display: none;
+                    }
+
+                    #expiration-label {
+                        width: 100%;
+                        margin-left: 15px;
+                        text-align: left;
+                    }
+
+                    #div_id_card_number {
+                        height: 90px;
+                    }
+
+                    #payment-button {
+                        margin-top: 20px;
+                    }
+
+                    .fa-lock {
+                        position: relative;
+                        float: left;
+                        top: -25px;
+                        left: 92%;
+                    }
+
+                    .card-type-icon {
+                        position: relative;
+                        float: left;
+                        top: -30px;
+                        left: 70%;
+                    }
+                }
+            }
+        }
+
+        #summary {
+            legend, p.title {
+                color: #337ab7;
+                font-size: 16px;
+                font-weight: bold;
+            }
+
+            .row {
+                margin: 0;
+            }
+
+            #basket-information {
+                .description {
+                    float: left;
+                }
+
+                .price {
+                    text-align: right;
+                }
+
+                .row {
+                    padding-bottom: 20px;
+                }
+
+                .amount {
+                    padding-bottom: 20px;
+                    color: palette(grayscale, base);
+                    font-size: 18px;
+
+                    .price {
+                        font-weight: bold;
+                    }
+                }
+
+                #basket-total {
+                    font-size: 24px;
+                    font-weight: bold;
+
+                    .price {
+                        color: #337ab7;
+                    }
+                }
+
+                #voucher-information {
+                    .use-voucher {
+                        padding: 0;
+                    }
+
+                    .voucher {
+                        float: left;
+                        font-size: 14px;
+                        margin: 0 10px 0 0;
+                        line-height: 33px;
+
+                        button {
+                            border: 0;
+                            background-color: white;
+                            color: #337ab7;
+                        }
+                    }
+                }
+
+                .product {
+                    .product-image {
+                        img {
+                            width: 100%;
+                            max-width: 150px;
+                            max-height: 150px;
+                        }
+                    }
+
+                    .product-information {
+                        .product-name {
+                            font-weight: bold;
+                        }
+
+                        #seat-type {
+                            color: palette(grayscale, base);
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
 /* Small devices (tablets, 992px and lower) */
 @media (max-width: $screen-md-min - 1) {
     .basket {
@@ -266,6 +481,38 @@
 
         .total p.voucher {
             margin: 0;
+        }
+    }
+    .basket-new .container {
+        padding: 20px 0 0 0;
+
+        .row {
+            margin-left: 0;
+            margin-right: 0;
+        }
+
+        .form-group {
+            display: block;
+        }
+
+        .payment-form #payment-information {
+            border-right: none;
+        }
+
+        .payment-methods {
+            padding-left: 0;
+
+            #payment-method {
+                padding-left: 0;
+            }
+        }
+        #summary #basket-information .product {
+            .product-image {
+                img {
+                    max-width: 100%;
+                    max-height: 100%;
+                }
+            }
         }
     }
 }

@@ -1,5 +1,6 @@
 from __future__ import unicode_literals
 
+from datetime import datetime
 import logging
 
 import waffle
@@ -177,37 +178,45 @@ class BasketSummaryView(BasketView):
             })
             lines_data.append(line_data)
 
-            user = self.request.user
-            context.update({
-                'analytics_data': prepare_analytics_data(
-                    user,
-                    self.request.site.siteconfiguration.segment_key,
-                    unicode(line_data.get('course_key'))  # TODO: Handle multiple course keys.
-                ),
-                'enable_client_side_checkout': False,
-            })
+        course_key = lines_data[0].get('course_key') if len(lines) == 1 else None
+        user = self.request.user
+        context.update({
+            'analytics_data': prepare_analytics_data(
+                user,
+                self.request.site.siteconfiguration.segment_key,
+                unicode(course_key)
+            ),
+            'enable_client_side_checkout': False,
+        })
 
-            if site_configuration.client_side_payment_processor \
-                    and waffle.flag_is_active(self.request, CLIENT_SIDE_CHECKOUT_FLAG_NAME):
-                payment_processor_class = site_configuration.get_client_side_payment_processor_class()
+        payment_processors = site_configuration.get_payment_processors()
+        if site_configuration.client_side_payment_processor \
+                and waffle.flag_is_active(self.request, CLIENT_SIDE_CHECKOUT_FLAG_NAME):
+            payment_processor_class = site_configuration.get_client_side_payment_processor_class()
 
-                if payment_processor_class:
-                    payment_processor = payment_processor_class(site)
+            if payment_processor_class:
+                payment_processor = payment_processor_class(site)
 
-                    context.update({
-                        'enable_client_side_checkout': True,
-                        'payment_form': PaymentForm(user=user, initial={'basket': basket}, label_suffix=''),
-                        'payment_url': payment_processor.client_side_payment_url,
-                    })
-                else:
-                    msg = 'Unable to load client-side payment processor [{processor}] for ' \
-                          'site configuration [{sc}]'.format(processor=site_configuration.client_side_payment_processor,
-                                                             sc=site_configuration.id)
-                    raise SiteConfigurationError(msg)
+                today = datetime.today()
+                context.update({
+                    'enable_client_side_checkout': True,
+                    'client_side_payment_processor_name': payment_processor.NAME,
+                    'paypal_enabled': len(payment_processors) > 1,
+                    'months': range(1, 13),
+                    'payment_form': PaymentForm(user=user, initial={'basket': basket}, label_suffix=''),
+                    'payment_url': payment_processor.client_side_payment_url,
+                    # Assumption is that the credit card duration is 15 years
+                    'years': range(today.year, today.year + 16)
+                })
+            else:
+                msg = 'Unable to load client-side payment processor [{processor}] for ' \
+                      'site configuration [{sc}]'.format(processor=site_configuration.client_side_payment_processor,
+                                                         sc=site_configuration.id)
+                raise SiteConfigurationError(msg)
 
         context.update({
             'free_basket': context['order_total'].incl_tax == 0,
-            'payment_processors': site_configuration.get_payment_processors(),
+            'payment_processors': payment_processors,
             'homepage_url': get_lms_url(''),
             'formset_lines_data': zip(formset, lines_data),
             'display_verification_message': display_verification_message,
@@ -215,6 +224,7 @@ class BasketSummaryView(BasketView):
             'show_voucher_form': show_voucher_form,
             'switch_link_text': switch_link_text,
             'partner_sku': partner_sku,
+            'course_key': course_key
         })
 
         return context

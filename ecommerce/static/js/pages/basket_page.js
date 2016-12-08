@@ -71,7 +71,7 @@ define([
             var $paymentButtons = $('.payment-buttons'),
                 basketId = $paymentButtons.data('basket-id');
 
-            $('#voucher_form_link a').on('click', function(event) {
+            $('#voucher_form_link').on('click', function(event) {
                 event.preventDefault();
                 showVoucherForm();
             });
