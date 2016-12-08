@@ -229,16 +229,17 @@
     }
 }
 
-
 .basket-new {
     .close {
         margin-top: -20px;
     }
+
     legend, p.title {
         color: #337ab7;
         font-size: 16px;
         font-weight: bold;
     }
+
     #payment-method-information {
         padding-left: 30px;
         padding-top: 0;
@@ -246,6 +247,10 @@
 
     .placeholder {
         padding: 20px 0;
+    }
+
+    .validation-error {
+        color: red;
     }
 
     #payment-method {
@@ -483,6 +488,7 @@
             margin: 0;
         }
     }
+
     .basket-new .container {
         padding: 20px 0 0 0;
 
@@ -506,6 +512,7 @@
                 padding-left: 0;
             }
         }
+
         #summary #basket-information .product {
             .product-image {
                 img {

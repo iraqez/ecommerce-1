@@ -17,7 +17,9 @@ Basket = get_model('basket', 'Basket')
 
 def country_choices():
     """ Returns a tuple of tuples, each containing an ISO 3166 country code. """
-    return ((country.alpha2, country.name) for country in pycountry.countries)
+    countries = [(country.alpha2, country.name) for country in pycountry.countries]
+    countries.insert(0, ('', '<Choose country>'))
+    return countries
 
 
 class PaymentForm(forms.Form):

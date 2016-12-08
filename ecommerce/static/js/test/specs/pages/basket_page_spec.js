@@ -47,7 +47,10 @@ define([
                     'data-processor-name="cybersource"' +
                     'class="btn btn-success payment-button"' +
                     'value="cybersource"' +
-                    'id="cybersource"></button></div>'
+                    'id="cybersource"></button></div>'+
+                    '<input type="number" id="id_card_number">' +
+                    '<img class="card-type-icon" src>' +
+                    '<input type="hidden" name="card_type" value>'
                 ).appendTo('body');
 
 
@@ -147,6 +150,31 @@ define([
                     $('input.quantity').first().val(1);
                     $('.spinner button.btn:last-of-type').trigger('click');
                     expect($('input.quantity').first().val()).toEqual('1');
+                });
+
+                it('should recognize the credit card', function() {
+                    var validCardList = [
+                        {'number': '378282246310005', 'name': 'amex', 'type': '003'},
+                        {'number': '30569309025904', 'name': 'diners', 'type': '005'},
+                        {'number': '6011111111111117', 'name': 'discover', 'type': '004'},
+                        {'number': '3530111333300000', 'name': 'jcb', 'type': '007'},
+                        {'number': '5105105105105100', 'name': 'mastercard', 'type': '002'},
+                        {'number': '4111111111111111', 'name': 'visa', 'type': '001'},
+                        {'number': '6759649826438453', 'name': 'maestro', 'type': '042'}
+                    ];
+                    BasketPage.onReady();
+
+                    $('#id_card_number').trigger('input');
+                    expect($('.card-type-icon').attr('src')).toEqual('');
+                    expect($('input[name=card_type]').val()).toEqual('');
+
+                    _.each(validCardList, function(card) {
+                        $('#id_card_number').val(card.number).trigger('input');
+                        expect($('.card-type-icon').attr('src')).toEqual(
+                            '/static/images/credit_cards/' + card.name + '.png'
+                        );
+                        expect($('input[name=card_type]').val()).toEqual(card.type);
+                    });
                 });
             });
 

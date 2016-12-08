@@ -37,7 +37,6 @@ define([
                 success: onSuccess,
                 error: onFail
             });
-
         },
         hideVoucherForm = function() {
             $('#voucher_form_container').hide();
@@ -67,9 +66,46 @@ define([
 
             $form.appendTo('body').submit();
         },
+        cardInfoValidation = function (event) {
+            var cardType,
+                currentMonth = new Date().getMonth(),
+                currentYear = new Date().getFullYear(),
+                cardNumber = $('input[name=card_number').val(),
+                cvnNumber = $('input[name=card_cvn]').val(),
+                cardExpiryMonth = $('select[name=card_expiry_month]').val(),
+                cardExpiryYear = $('select[name=card_expiry_year]').val();
+
+            _.each($('.validation-error'), function(errorMsg) {
+                $(errorMsg).empty();
+            });
+            cardType = Utils.getCreditCardType(cardNumber);
+
+            if (!Utils.isValidCardNumber(cardNumber)) {
+                $('#div_id_card_number .validation-error').append('<span>Invalid card number</span>');
+                event.preventDefault();
+            } else if (typeof cardType === 'undefined') {
+                $('#div_id_card_number .validation-error').append('<span>Unsupported card type</span>');
+                event.preventDefault();
+            } else if ( cvnNumber.length !== cardType.cvnLength) {
+                $('#div_id_card_cvn .validation-error').append('<span>Wrong CVN length</span>');
+                event.preventDefault();
+            }
+
+            if (Number(cardExpiryMonth) > 12 || Number(cardExpiryMonth) < 1) {
+                $('#div_id_card_expiration_month .validation-error').append('<span>Invalid month</span>');
+                event.preventDefault();
+            } else if (Number(cardExpiryYear) < currentYear) {
+                $('#div_id_card_expiration_year .validation-error').append('<span>Invalid year</span>');
+                event.preventDefault();
+            } else if (Number(cardExpiryMonth) < currentMonth && Number(cardExpiryYear) === currentYear) {
+                $('#div_id_card_expiration_year .validation-error').append('<span>Card expired</span>');
+                event.preventDefault();
+            }
+        },
         onReady = function() {
             var $paymentButtons = $('.payment-buttons'),
-                basketId = $paymentButtons.data('basket-id');
+                basketId = $paymentButtons.data('basket-id'),
+                iconPath = '/static/images/credit_cards/';
 
             $('#voucher_form_link').on('click', function(event) {
                 event.preventDefault();
@@ -79,6 +115,30 @@ define([
             $('#voucher_form_cancel').on('click', function(event) {
                 event.preventDefault();
                 hideVoucherForm();
+            });
+
+            $('#id_card_number').on('input', function() {
+                var cardNumber = $('#id_card_number').val().replace(/\s+/g, ''),
+                    card;
+
+                if (cardNumber.length > 12) {
+                    card = Utils.getCreditCardType(cardNumber);
+
+                    if (typeof card !== 'undefined') {
+                        $('.card-type-icon').attr(
+                            'src',
+                            iconPath + card.name + '.png'
+                        );
+                        $('input[name=card_type]').val(card.type);
+                    } else {
+                        $('.card-type-icon').attr('src', '');
+                        $('input[name=card_type]').val('');
+                    }
+                }
+            });
+
+            $('#payment-button').click(function(e) {
+                cardInfoValidation(e);
             });
 
             $paymentButtons.find('.payment-button').click(function (e) {

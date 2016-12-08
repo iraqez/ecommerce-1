@@ -125,6 +125,7 @@
                         <input id="id_card_number" name="card_number" class="form-control pci-field" maxlength="20" required aria-required="true"/>
                         <i class="fa fa-lock" aria-hidden="true"></i>
                         <img class="card-type-icon" src="">
+                        <p class="validation-error"></p>
                     </div>
                     <input type="hidden" name="card_type" value="" class="pci-field">
                     <div id="div_id_card_cvn" class="form-group col-sm-6">
@@ -135,6 +136,7 @@
                         </label>
                         <input type="password" id="id_card_cvn" name="card_cvn" class="form-control pci-field" maxlength="4" required aria-required="true"/>
                         <i class="fa fa-lock" aria-hidden="true"></i>
+                        <p class="validation-error"></p>
                     </div>
                     <label id="expiration-label" for="id_card_expiry_month" class="control-label">{% trans "Expiration (required)" %}</label>
                     <div id="div_id_card_expiration_month" class="form-group col-sm-6 col-xs-7">
@@ -144,6 +146,7 @@
                                 <option value="{{forloop.counter|stringformat:'02d'}}">{{month}}</option>
                             {% endfor %}
                         </select>
+                        <p class="validation-error"></p>
                     </div>
                     <div id="div_id_card_expiration_year" class="form-group col-sm-6 col-xs-5">
                         <select id="id_card_expiry_year" name="card_expiry_year" class="form-control pci-field" required aria-required="true">
@@ -152,6 +155,7 @@
                                 <option value="{{year}}">{{year}}</option>
                             {% endfor %}
                         </select>
+                        <p class="validation-error"></p>
                     </div>
                     <input type="hidden" name="card_expiry_date" value="" class="pci-field">
                 </div>
